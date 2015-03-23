@@ -1,0 +1,122 @@
+.circular-menu * {
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.circular-menu {
+    position: relative;
+    margin-bottom: 3em;
+    height: 15em;
+    background: rgba(0,0,0,0.05);
+    font-family: 'Lato', Arial, sans-serif;
+    -webkit-user-select: none;
+}
+
+.cn-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 10;
+    margin-top: -13em;
+    margin-left: -13.5em;
+    width: 27em;
+    height: 27em;
+    border-radius: 50%;
+    background: transparent;
+    opacity: 0;
+    transition: all .3s ease 0.3s;
+    transform: scale(0.1);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/*cover to prevent extra space of anchors from being clickable*/
+.cn-wrapper:after{
+    content: ".";
+    display: block;
+    font-size: 2em;
+    width: 6.2em;
+    height: 6.2em;
+    position: absolute;
+    left: 50%;
+    margin-left: -3.1em;
+    top:50%;
+    margin-top: -3.1em;
+    border-radius: 50%;
+    z-index:10;
+    color: transparent;
+}
+
+.opened-circular-nav {
+    border-radius: 50%;
+    opacity: 1;
+    transition: all .3s ease;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.cn-wrapper li {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    margin-top: -1.3em;
+    margin-left: -10em;
+    width: 10em;
+    height: 10em;
+    font-size: 1.5em;
+    transition: all .3s ease;
+    transform-origin: 100% 100%;
+    pointer-events: none;
+}
+
+.cn-wrapper li a {
+    position: absolute;
+    right: -7.25em;
+    bottom: -7.25em;
+    display: block;
+    width: 14.5em;
+    height: 14.5em;
+    border-radius: 50%;
+    background: radial-gradient(transparent 35%, #429a67 35%);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2em;
+    line-height: 2;
+    transform: skew(-50deg) rotate(-70deg) scale(1);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    pointer-events: auto;
+}
+
+.cn-wrapper li a span {
+    position: relative;
+    top: 1.8em;
+    display: block;
+    font-size: .5em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.cn-wrapper li a:hover,
+.cn-wrapper li a:active,
+.cn-wrapper li a:focus {
+    background: radial-gradient(transparent 35%, #449e6a 35%);
+}
+.cn-wrapper li a:focus {
+    position: fixed;
+}
+
+.opened-circular-nav li {
+    transition: all .3s ease .3s;
+}
+
+@media only screen and (max-width: 480px) {
+     .cn-wrapper {
+        font-size: .68em;
+    }
+}
