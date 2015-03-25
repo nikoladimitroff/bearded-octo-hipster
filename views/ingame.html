@@ -5,20 +5,19 @@
 <link rel="stylesheet" href="../styles/ingame.css"/>
 </head>
 <body>
-    <div id="ingame-menu" class="gamepad circular-menu">
-        <button class="cn-button" id="cn-button">Menu</button>
-        <div class="cn-wrapper" id="cn-wrapper">
-            <ul>
-                <li><a href="#"><span>Resume</span></a></li>
-                <li><a href="#"><span>Map</span></a></li>
-                <li><a href="#"><span>Inventory</span></a></li>
-                <li><a href="#"><span>Settings</span></a></li>
-                <li><a href="#"><span>Quit
-                </span></a></li>
-             </ul>
-        </div>
+    <div id="ingame-menu" class="gamepad circular-menu"
+         data-bind="template: {name: 'gamepad-menu', data: ingameMenu}">
     </div>
 </body>
+<script type="text/html" id="gamepad-menu">
+    <button class="cn-button" id="cn-button">Menu</button>
+    <div class="cn-wrapper" id="cn-wrapper">
+        <ul data-bind="foreach: $data">
+            <li><a href="#"><span data-bind="text: $data"></span></a></li>
+         </ul>
+    </div>
+</script>
+<script src="../scripts/knockout-3.2.0.js"></script>
 <script src="../scripts/circular_navigation.js"></script>
 <script src="../scripts/ingame.js"></script>
 </html>

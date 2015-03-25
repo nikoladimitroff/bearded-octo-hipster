@@ -12,92 +12,36 @@
             <!-- mp-menu -->
             <nav id="main-menu" class="mp-menu">
                 <div class="mp-level">
-                    <h2 class="icon icon-world">Our Awesome Game</h2>
-                    <ul>
-                        <li class="icon icon-arrow-left">
-                            <a class="icon icon-display" href="#">New game</a>
-                            <div class="mp-level">
-                                <h2 class="icon icon-display">New game</h2>
-                                <a class="mp-back" href="#">back</a>
-                                <ul>
-                                    <li class="icon icon-arrow-left">
-                                        <li><a href="#">Single Player</a></li>
-                                        <li><a href="#">Versus</a></li>
-                                        <li><a href="#">Co-op</a></li>
-                                        <li><a href="#">Online</a></li>
-                                </ul>
-                            </div>
-                        </li>   
-                        <li class="icon icon-arrow-left">
-                            <a class="icon icon-shop" href="#">Settings</a>
-                            <div class="mp-level">
-                                <h2 class="icon icon-shop">Settings</h2>
-                                <a class="mp-back" href="#">back</a>
-                                <ul>
-                                    <li class="icon icon-arrow-left">
-                                        <a class="icon icon-t-shirt" href="#">Video</a>
-                                        <div class="mp-level">
-                                            <h2 class="icon icon-t-shirt">Video</h2>
-                                            <a class="mp-back" href="#">back</a>
-                                            <ul>
-                                                <li class="icon icon-arrow-left">
-                                                    <a class="icon icon-female" href="#">Basic</a>
-                                                    <div class="mp-level">
-                                                        <h2 class="icon icon-female">Basic</h2>
-                                                        <a class="mp-back" href="#">back</a>
-                                                        <ul>
-                                                            <li><a href="#">Resolution</a></li>
-                                                            <li><a href="#">Anisotropic filtering</a></li>
-                                                            <li><a href="#">Antialiasing</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <li class="icon icon-arrow-left">
-                                                    <a class="icon icon-male" href="#">Advanced</a>
-                                                    <div class="mp-level">
-                                                        <h2 class="icon icon-male">Advanced</h2>
-                                                        <a class="mp-back" href="#">back</a>
-                                                        <ul>
-                                                            <li><a href="#">Texture quality</a></li>
-                                                            <li><a href="#">Shadow quality</a></li>
-                                                            <li><a href="#">Distance quality</a></li>
-                                                            <li><a href="#">Particle quality</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="icon icon-arrow-left">
-                                        <a class="icon icon-t-shirt" href="#">Audio</a>
-                                        <div class="mp-level">
-                                            <h2 class="icon icon-t-shirt">Audio</h2>
-                                            <a class="mp-back" href="#">back</a>
-                                            <ul>
-                                                <li><a href="#">Master volume</a></li>
-                                                <li><a href="#">Voice</a></li>
-                                                <li><a href="#">SFX</a></li>
-                                                <li><a href="#">Music</a></li>
-                                                <li><a href="#">Subtitles?</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="icon icon-diamond" href="#">Gameplay</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a class="icon icon-wallet" href="#">Credits</a></li>
-                        <li><a class="icon icon-wallet" href="#">Quit</a></li>
+                    <h2 class="icon icon-world" data-bind="text: heading"></h2>
+                    <ul data-bind="template: {name: 'menu-level-template',
+                                              foreach: menu}">
                     </ul>
-                        
                 </div>
             </nav>
             <!-- /mp-menu -->
         </div><!-- /pusher -->
     </div><!-- /multi-level-menu-container -->
 </body>
+
+<script type="text/html" id="menu-level-template">
+<li>
+<!-- ko if: !$data.children || $data.children.length === 0 -->
+    <a href="#" data-bind="text: name, attr: {class: 'icon ' + icon}"></a>
+<!-- /ko -->
+
+<!--ko if: $data.children && $data.children.length !== 0 -->
+    <a href="#" data-bind="text: name, attr: {class: 'icon ' + icon}"></a>
+    <div class="mp-level">
+        <h2 data-bind="text: name, attr: {class: 'icon ' + icon}"></h2>
+        <a class="mp-back" href="#">back</a>
+        <ul data-bind="template: {name: 'menu-level-template',
+                                  foreach: children}">
+        </ul>
+    </div>
+<!-- /ko -->
+</li>
+</script>
+<script src="../scripts/knockout-3.2.0.js"></script>
 <script src="../scripts/classie.js"></script>
 <script src="../scripts/multi_level_push_menu.js"></script>
 <script src="../scripts/main_menu.js"></script>
