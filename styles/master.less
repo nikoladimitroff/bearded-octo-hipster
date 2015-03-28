@@ -3,12 +3,29 @@
 html, body {
     width: 100%;
     height: 100%;
-    overflow: hidden;
     background: @body-background;
     font: @body-font;
+    overflow: hidden;
     padding: 0;
     margin: 0;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.hidden {
+    display: none;
+}
+
+ul.vertical-list li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    * {
+        margin: 0;
+        padding: 0;
+    }
 }
 
 @import "./circular_navigation";
 @import "./multi_level_menu";
+@import "./buttons";

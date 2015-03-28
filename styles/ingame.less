@@ -1,1 +1,62 @@
 @import "./settings";
+
+body {
+}
+
+.vertical-menu {
+    position: relative;
+}
+
+.vertical-menu .wrapper {
+    position: absolute;
+    top: 0%;
+    left: 40%;
+    transition: all 0.5s ease-in;
+    background: @background-color;
+    opacity: 0;
+    &.opened {
+        opacity: 1;
+    }
+    ul {
+        margin: 20px;
+        padding: 0;
+        padding-bottom: 1000px; // Makes the menu take all the space
+        height: 100%;
+    }
+    li {
+        height: 5em;
+        margin: 20px;
+    }
+    li:first-child{
+        margin-top: 40px;
+    }
+    button {
+        width: 25em;
+        height: 4em;
+        color: white;
+        font: @button-font;
+        transition: all 0.25s linear;
+        &:hover, &:focus, &:active {
+            background: @hover-color;
+        }
+    }
+}
+
+.gamepad.ingame-menu a {
+    font: @button-radial-font;
+    background: radial-gradient(transparent 35%, @background-color 35%);
+    border: @border-color 2px solid;
+    &:hover, &:active, &:focus {
+        background: radial-gradient(transparent 35%, @hover-color 35%);
+    }
+    span {
+        font-size: 1em;
+    }
+}
+
+nav {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: white;
+}

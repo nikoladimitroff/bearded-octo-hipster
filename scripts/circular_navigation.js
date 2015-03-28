@@ -25,7 +25,7 @@ function addRadialTransforms(menu) {
     var children = menu.children;
     var n = children.length;
     var angularSize = 2 * 180 / n;
-    var skew = 90 - angularSize;
+    var skew = 90 - angularSize + 1;
     for (var i = 0; i < children.length; i++) {
         var angle = 90 - angularSize / 2 + i * angularSize;
         var unrotationAngle = -(90 - angularSize / 2);

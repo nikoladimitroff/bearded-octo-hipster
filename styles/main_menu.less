@@ -1,7 +1,31 @@
 @import "./settings";
 
 .multi-level-menu-container {
-    font: @body-font;
+    font: @button-font;
+    h2 {
+        font: @heading-font;
+    }
+}
+.mp-menu ul li > a {
+    text-decoration: none;
+    &:before {
+        opacity: 0;
+        transition: transform 0.3s, opacity 0.2s;
+        transform: translate(20px);
+        margin-right: 10px;
+        content: "[";
+    }
+    &:after {
+        opacity: 0;
+        transition: transform 0.3s, opacity 0.2s;
+        transform: translate(-20px);
+        margin-left: 10px;
+        content: "]";
+    }
+    &:hover:before, &:hover:after {
+        opacity: 1;
+        transform: translate(0px);
+    }
 }
 
 .mp-pusher {

@@ -5,18 +5,48 @@
 <link rel="stylesheet" href="../styles/ingame.css"/>
 </head>
 <body>
-    <div id="ingame-menu" class="gamepad circular-menu"
+    <div class="keyboard ingame-menu vertical-menu"
+         data-bind="template: {name: 'keyboard-menu', data: ingameMenu}">
+    </div>
+
+    <div class="gamepad ingame-menu circular-menu hidden"
          data-bind="template: {name: 'gamepad-menu', data: ingameMenu}">
     </div>
+
+    <nav>
+        <label>Select platform:
+            </br>
+            <select id="platform-select">
+                <option>Keyboard</option>
+                <option>Gamepad</option>
+                <option>Mobile</option>
+            </select>
+        </label>
+    </nav>
 </body>
 <script type="text/html" id="gamepad-menu">
-    <button class="cn-button" id="cn-button">Menu</button>
+    <button class="cn-button" id="cn-button">Gamepad</button>
     <div class="cn-wrapper" id="cn-wrapper">
         <ul data-bind="foreach: $data">
             <li><a href="#"><span data-bind="text: $data"></span></a></li>
          </ul>
     </div>
 </script>
+<script type="text/html" id="keyboard-menu">
+    <button class="" id="">Keyboard</button>
+    <div class="wrapper" id="">
+        <ul class="vertical-list" data-bind="foreach: $data">
+            <li><button class="button button--itzel button--border-thin button--round-s" data-bind="text: $data"></button></li>
+        </ul>
+    </div>
+</script>
+<svg class="hidden">
+    <defs>
+        <clipPath id="clipBox" clipPathUnits="objectBoundingBox">
+            <polygon points="0,0 0,1 0.35,1 0.35,0.6 0.65,0.6 0.65,1 1,1 1,0" />
+        </clipPath>
+    </defs>
+</svg>
 <script src="../scripts/knockout-3.2.0.js"></script>
 <script src="../scripts/circular_navigation.js"></script>
 <script src="../scripts/ingame.js"></script>
