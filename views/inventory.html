@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../styles/master.css"/>
+<link rel="stylesheet" href="../styles/inventory.css"/>
+</head>
+<body>
+
+<table class="inventory">
+<thead>
+    <tr>
+        <th colspan="99">Your Inventory</th>
+    </tr>
+</thead>
+<tbody data-bind="foreach: inventory">
+    <tr data-bind="foreach: $data">
+        <td align="center"
+            draggable="true"
+            ondragstart="viewmodel.dragStart(event)"
+            ondrop="viewmodel.drop(event)"
+            data-bind="attr: {
+                'data-index': $parentContext.$index() + '-' + $index(),
+                width: $root.iconWidth,
+                height: $root.iconHeight
+            }">
+
+            <img data-bind="attr: {
+                src: icon,
+                width: $root.iconWidth,
+                height: $root.iconHeight,
+            },
+            visible: name.length !== 0">
+            </img>
+            </br>
+            <span data-bind="text: name, visible: name.length !== 0"></span>
+        </td>
+        <!-- /ko -->
+    </tr>
+</tbody>
+</table>
+
+</body>
+<script src="../scripts/knockout-3.2.0.js"></script>
+<script src="../scripts/inventory.js"></script>
+</html>

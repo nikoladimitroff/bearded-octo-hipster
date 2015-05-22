@@ -1,0 +1,51 @@
+@import "./settings";
+
+// inventory specific settings
+
+@cell-border: 1px solid rgba(255, 255, 255, 0.3);
+@cell-border-hovered: 1px solid rgba(255, 255, 255, 0.8);
+@cell-border-focused: 2px solid darkorange;
+@cell-background-selected: darken(darkorange, 15%);
+@cell-text-color: white;
+@cell-width: 20%;
+@cell-height: 10%;
+@image-max-width: 256px;
+@image-max-height: 128px;
+
+body {
+    background: @body-background;
+}
+
+table.inventory {
+    background: fade(@background-color, 70%);
+    color: @cell-text-color;
+    width: 100%;
+    height: 100%;
+
+    border-spacing: 24px;
+    border-collapse: separate;
+
+    thead {
+        font: @button-font;
+        text-align: left;
+    }
+
+    td {
+        font: @body-font;
+        border: @cell-border;
+
+        transition: all 0.5s ease-in;
+
+
+        &:hover {
+            transform: scale(1.1, 1.1);
+            border: @cell-border-hovered;
+        }
+        &.selected {
+            background: @cell-background-selected;
+        }
+        &.focused {
+            border: @cell-border-focused;
+        }
+    }
+}
