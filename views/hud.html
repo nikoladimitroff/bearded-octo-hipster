@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../styles/master.css"></link>
+<link rel="stylesheet" href="../styles/hud.css"></link>
+</head>
+<body>
+<video autoplay loop>
+    <source src="../spaceship.ogv" type='video/ogg; codecs="theora, vorbis"'/>
+</video>
+<div id="meters">
+    <meter
+           class="experience"
+           max="1"min="0"
+           data-bind="value: experience, attr: {title: experienceTooltip}">
+    </meter>
+    <meter class="ammo"
+           max="1"min="0"
+           data-bind="value: ammo, attr: {title: ammoTooltip}">
+    </meter>
+    <meter class="health"
+           max="1" min="0"
+           data-bind="value: health, attr: {title: healthTooltip}">
+    </meter>
+</div>
+
+<script src="../scripts/knockout-3.2.0.js"></script>
+<script src="../scripts/hud.js"></script>
+</body>
+</html>

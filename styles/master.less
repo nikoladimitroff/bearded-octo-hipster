@@ -3,13 +3,24 @@
 html, body {
     width: 100%;
     height: 100%;
-    background: @body-background;
     font: @body-font;
     overflow: hidden;
     padding: 0;
     margin: 0;
+}
+
+video {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    z-index: -10;
+}
+
+* {
     -webkit-user-select: none;
     user-select: none;
+    cursor: default;
 }
 
 .hidden {

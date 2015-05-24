@@ -2,11 +2,25 @@
 <html>
 <head>
 <link rel="stylesheet" href="styles/master.css"/>
+<style>
+a {
+    color: white;
+    z-index: 999;
+}
+</style>
 </head>
 <body>
-    <a href="views/main_menu.html">Main menu</a>
-    <a href="views/ingame.html">In-game</a>
-    <a href="views/inventory.html">Inventory</a>
+    <video autoplay loop>
+        <source src="spaceship.ogv" type='video/ogg; codecs="theora, vorbis"'/>
+    </video>
+    <ul>
+        <li><a href="views/main_menu.html">Main menu</a></li>
+        <li><a href="views/ingame.html">In-game menu</a></li>
+        <li><a href="views/hud.html">HUD</a></li>
+        <li><a href="views/inventory.html">Inventory</a></li>
+        <li><a href="views/scoreboard.html">Scoreboard</a></li>
+        <li><a href="views/map.html">Map</a></li>
+    </ul>
 </body>
 <script src="scripts/main.js"></script>
 </html>

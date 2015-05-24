@@ -26,7 +26,7 @@ table.inventory {
     border-collapse: separate;
 
     thead {
-        font: @button-font;
+        font: @button-radial-font;
         text-align: left;
     }
 
@@ -34,12 +34,10 @@ table.inventory {
         font: @body-font;
         border: @cell-border;
 
-        transition: all 0.5s ease-in;
-
+        transition: background 0.5s ease-in, transform 0.3s ease-out;
 
         &:hover {
             transform: scale(1.1, 1.1);
-            border: @cell-border-hovered;
         }
         &.selected {
             background: @cell-background-selected;

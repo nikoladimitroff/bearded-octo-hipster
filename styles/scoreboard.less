@@ -1,0 +1,76 @@
+@import "./settings";
+
+// inventory specific settings
+
+@cell-border: 1px solid rgba(255, 255, 255, 0.3);
+@cell-border-hovered: 1px solid rgba(255, 255, 255, 0.8);
+@cell-border-focused: 2px solid darkorange;
+@cell-background-selected: darken(darkorange, 15%);
+@cell-text-color: white;
+@cell-width: 20%;
+@cell-height: 10%;
+@image-max-width: 256px;
+@image-max-height: 128px;
+
+body {
+    background: @body-background;
+    background: fade(@background-color, 70%);
+}
+
+table.scoreboard {
+    color: @cell-text-color;
+    width: 100%;
+    height: 100%;
+
+            background: fade(@background-color, 70%);
+    border-collapse: collapse;
+
+    thead {
+        padding: 20px;
+        font: @button-radial-font;
+        text-align: left;
+    }
+    th {
+        &:last-of-type {
+            padding-right: 20px;
+        }
+    }
+    tbody tr {
+        transition: background 0.5s ease-in, transform 0.3s ease-out;
+        &:nth-child(even) {
+            @darkened-color: darken(@background-color, 20%);
+            background: fade(@darkened-color, 70%);
+
+            &:hover {
+                background: fade(darken(@darkened-color, 20%), 70%);
+            }
+        }
+        &:nth-child(odd) {
+            background: fade(@background-color, 70%);
+
+            &:hover {
+                background: fade(lighten(@background-color, 20%), 70%);
+            }
+        }
+    }
+
+    td {
+        font: @body-font;
+        line-height: 50px;
+        border-bottom: 1px solid darkorange;
+
+        img {
+            float: left;
+        }
+        
+        &.selected {
+            background: @cell-background-selected;
+        }
+        &.focused {
+            border: @cell-border-focused;
+        }
+        &:last-of-type {
+            padding-right: 20px;
+        }
+    }
+}

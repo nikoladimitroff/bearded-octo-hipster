@@ -1,0 +1,54 @@
+@import "./settings";
+
+div#meters {
+    float: left;
+    perspective: 600px;
+    width: 20%;
+    height: 100%;
+}
+
+
+@meter-base-transform: rotate(-90deg) translateX(-75%) rotateX(-45deg);
+@meter-offset-mult: -100%;
+@meter-offset-const: -250%;
+meter {
+    width: 150%;
+    height: 5%;
+    position: absolute;
+    transition: background 0.1s ease-out,
+                transform 0.3s ease-in,
+                z-index 0.3s ease-in;
+}
+
+meter { -webkit-appearance: none; } //Crucial, this will disable the default styling in Webkit browsers
+
+meter::-webkit-meter-bar {
+    background: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+.get-meter-transform(@index, @meter-color) {
+    &::-webkit-meter-optimum-value {
+        background: linear-gradient(90deg, fade(@meter-color, 20%), @meter-color);
+    }
+    
+    @meter-transform: @meter-base-transform translateY(@meter-offset-const + @index * @meter-offset-mult);
+    transform: @meter-transform;
+    &:hover {
+        @hover-transform: @meter-transform scale(1.15, 1.15) translateZ(10px);
+        transform: @hover-transform;
+        outline: 1.75px solid darkslategray;
+        z-index: 1;
+    }
+}
+
+meter.health {
+    .get-meter-transform(1, midnightblue);
+}
+
+meter.ammo {
+    .get-meter-transform(2, gold);
+}
+meter.experience {
+    .get-meter-transform(3, purple);
+}

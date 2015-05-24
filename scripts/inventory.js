@@ -1,7 +1,7 @@
 var Item = function (name) {
     this.name = name;
     var iconName = name.toLowerCase().split(" ").join("_") + ".png";
-    this.icon = "../images/" + iconName;
+    this.icon = "../images/items/" + iconName;
 };
 
 var allItems = ["", "Ion Turret", "Ion Engine", "Plasma Engine", "Laser Engine"];
