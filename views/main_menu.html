@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="../font-awesome-4.2.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../styles/master.css"/>
 <link rel="stylesheet" href="../styles/main_menu.css"/>
 </head>
@@ -28,14 +29,19 @@
 
 <script type="text/html" id="menu-level-template">
 <li>
+    <a href="#">
+        <i data-bind="attr: {class: 'fa fa-' + icon}"></i>
+        <span data-bind="text: name"></span>
+    </a>
 <!-- ko if: !$data.children || $data.children.length === 0 -->
-    <a href="#" data-bind="text: name, attr: {class: 'icon ' + icon}"></a>
 <!-- /ko -->
 
 <!--ko if: $data.children && $data.children.length !== 0 -->
-    <a href="#" data-bind="text: name, attr: {class: 'icon ' + icon}"></a>
     <div class="mp-level">
-        <h2 data-bind="text: name, attr: {class: 'icon ' + icon}"></h2>
+        <h2>
+            <i data-bind="attr: {class: 'fa fa-' + icon}"></i>
+            <span data-bind="text: name"></span>
+        </h2>
         <a class="mp-back" href="#">back</a>
         <ul data-bind="template: {name: 'menu-level-template',
                                   foreach: children}">

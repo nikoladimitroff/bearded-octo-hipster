@@ -1,19 +1,19 @@
 var data = {
-    heading: "Our Awesome Game",
+    heading: "Bearded Octo Hipster",
     menu: [{
-        name: "New Game",
-        icon: "",
+        name: "Play",
+        icon: "gamepad",
         children: [
-            {name: "Single Player", icon: ""},
-            {name: "Versus", icon: ""},
-            {name: "Co-op", icon: ""},
-            {name: "Online", icon: ""}
+            {name: "Single Player", icon: "user"},
+            {name: "Versus", icon: "gavel"},
+            {name: "Co-op", icon: "shield"},
+            {name: "Online", icon: "users"}
         ]}, {
         name: "Settings",
-        icon: "",
+        icon: "cogs",
         children: [{
             name: "Video",
-            icon: "",
+            icon: "video-camera",
             children: [{
                 name: "Basic",
                 icon: "",
@@ -31,18 +31,22 @@ var data = {
                 ]}
             ]}, {
             name: "Audio",
-            icon: "",
+            icon: "headphones",
             children: [
-                {name: "Master volume", icon: ""},
-                {name: "Voice", icon: ""},
-                {name: "SFX", icon: ""},
-                {name: "Music", icon: ""},
-                {name: "Subtitles?", icon: ""},
+                {name: "Master", icon: "volume-up"},
+                {name: "Voice", icon: "users"},
+                {name: "SFX", icon: "bullhorn"},
+                {name: "Music", icon: "music"},
+                {name: "Mic", icon: "microphone"},
+                {name: "Subtitles?", icon: "font"},
             ]}, {
             name: "Gameplay",
-            icon: "",
+            icon: "space-shuttle",
             }]
         }, {
+        name: "Achievements",
+        icon: "trophy",
+        },{
         name: "Credits",
         icon: "",
         }, {

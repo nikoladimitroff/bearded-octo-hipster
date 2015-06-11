@@ -4,22 +4,29 @@
     font: @button-font;
     h2 {
         font: @heading-font;
+        padding: 0.7em
     }
 }
 .mp-menu ul li > a {
     text-decoration: none;
+    padding-left: .3em; // the mp-menu sets this to 0.7em but that's too much
+    padding-right: .3em; // the mp-menu sets this to 0.7em but that's too much
+    i, span {
+        margin: 0;
+        padding: 0;
+    }
     &:before {
         opacity: 0;
         transition: transform 0.3s, opacity 0.2s;
         transform: translate(20px);
-        margin-right: 10px;
+        margin-right: 5px;
         content: "[";
     }
     &:after {
         opacity: 0;
         transition: transform 0.3s, opacity 0.2s;
         transform: translate(-20px);
-        margin-left: 10px;
+        margin-left: 5px;
         content: "]";
     }
     &:hover:before, &:hover:after {

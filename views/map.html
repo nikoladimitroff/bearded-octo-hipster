@@ -1,29 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>bigpicture.js</title>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-  <link href="../styles/bigpicture.css" rel="stylesheet">
-  <style>
-  body, html { margin: 0; }
-  </style>
+<link rel="stylesheet" href="../styles/master.css"></link>
+<link href="../styles/map.css" rel="stylesheet">
 </head>
 
 <body>
 <video autoplay loop>
-    <source src="spaceship.ogv" type='video/ogg; codecs="theora, vorbis"'/>
+    <source src="../spaceship.ogv" type='video/ogg; codecs="theora, vorbis"'/>
 </video>
-<div id="bigpicture-container">
-<div id="bigpicture" data-zoom="1" data-x="721" data-y="480">
-    <div class="text" data-size="30" data-x="941" data-y="735"><img src="../images/suns/sun_4.png"></img></div>
-    <div class="text" data-size="40" data-x="735" data-y="900"><img src="../images/suns/sun_6.png"></img></div>
-    <div class="text" data-size="50" data-x="500" data-y="500"><img src="../images/suns/sun_7.png"></img></div>
-</div>
-</div>
-
-<script type="text/javascript" src="../scripts/bigpicture.min.js"></script>
-
-</body>
+  <body class="opening hide-UI view-2D zoom-large data-close controls-close">
+    <div id="navbar">
+      <a id="toggle-data" href="#data"><i class="icon-data"></i>Data</a>
+      <a id="toggle-controls" href="#controls"><i class="icon-controls"></i>Controls</a>
+    </div>
+    <div id="data" data-bind="foreach: planets">
+      <a data-bind="text: name, click: onselected"></a>
+    </div>
+    <div id="controls">
+      <label class="set-view">
+        <input type="checkbox">
+      </label>
+      <label class="set-zoom">
+        <input type="checkbox">
+      </label>
+    </div>
+    <div id="universe" class="scale-stretched">
+      <div id="galaxy">
+        <div id="solar-system" class="jupiter" data-bind="foreach: planets">
+          <div class="orbit" data-bind="style: {
+            'z-index': $root.planets.length - $index() + 2,
+            width: orbitSize + 'em',
+            height: orbitSize + 'em',
+            'margin-top': -(orbitSize / 2) + 'em',
+            'margin-left': -(orbitSize / 2) + 'em',
+            'animation-duration': orbitalDuration,
+            },
+            attr: { id: 'planet' + $index() }
+            ">
+            <div class="pos"data-bind="style: {
+              'animation-duration': orbitalDuration,
+              }">
+              <div class="planet" data-bind="style: {
+                'animation-duration': orbitalDuration,
+                'background-image': 'url(' + icon + ')',
+                'font-size': planetSize/10 + 'em',
+                }">
+                <dl class="infos">
+                  <dt data-bind="text: name"></dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <!-- ko if: $index() == $root.planets.length - 1 -->
+          <div id="sun">
+            <dl class="infos">
+              <dt>Sun</dt>
+              <dd><span></span></dd>
+            </dl>
+          </div>
+          <!-- /ko -->
+        </div>
+      </div>
+    </div>
+  </body>
+<style type='text/css' data-bind="text: infoText"></style>
+<script type="text/javascript" src="../scripts/jquery.min.js"></script>
+<script type="text/javascript" src="../scripts/knockout-3.2.0.js"></script>
+<script type="text/javascript" src="../scripts/config.js"></script>
+<script type="text/javascript" src="../scripts/map.js"></script>
 </html>

@@ -23,8 +23,38 @@
            data-bind="value: health, attr: {title: healthTooltip}">
     </meter>
 </div>
+<div id="crosshair">
+    <div>
+        <div></div>
+    </div>
+</div>
+<ul id="abilities" class="horizontal-list" data-bind="foreach: abilities">
+    <li data-bind="attr: {title: description}">
+        <img data-bind="attr: {src: icon}"></img>
+        </br>
+        <span data-bind="text: key"></span>
+    </li>
+</ul>
+<div id="radar" title="Your radar">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="center"></div>
+    <!-- ko foreach: detectedEnemies -->
+    <div class="enemy"
+         data-bind="style: {
+                        left: x,
+                        top: y,
+                        background: 'url(' + shipIcon + ')'
+                    }, attr: {
+                        title: shipName
+                    }">
+    </div>
+    <!-- /ko -->
+</div>
 
 <script src="../scripts/knockout-3.2.0.js"></script>
+<script src="../scripts/config.js"></script>
 <script src="../scripts/hud.js"></script>
 </body>
 </html>

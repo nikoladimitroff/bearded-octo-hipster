@@ -1,5 +1,10 @@
 @import "./settings";
 
+// Font awesome overrides
+@font-face{font-family:'FontAwesome';src:url('../font-awesome-4.3.0/fonts/fontawesome-webfont.eot?v=4.2.0');src:url('../font-awesome-4.3.0/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'),url('../font-awesome-4.3.0/fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'),url('../font-awesome-4.3.0/fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'),url('../font-awesome-4.3.0/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');font-weight:normal;font-style:normal}
+
+// end of FA
+
 div#meters {
     float: left;
     perspective: 600px;
@@ -10,7 +15,7 @@ div#meters {
 
 @meter-base-transform: rotate(-90deg) translateX(-75%) rotateX(-45deg);
 @meter-offset-mult: -100%;
-@meter-offset-const: -250%;
+@meter-offset-const: -200%;
 meter {
     width: 150%;
     height: 5%;
@@ -18,6 +23,13 @@ meter {
     transition: background 0.1s ease-out,
                 transform 0.3s ease-in,
                 z-index 0.3s ease-in;
+    &:after {
+        display: inline-block;
+        -webkit-font-smoothing: antialiased;
+        font: 35px FontAwesome;
+        transform: rotate(90deg) translate(-100%, 100%);
+        color: red;
+    }
 }
 
 meter { -webkit-appearance: none; } //Crucial, this will disable the default styling in Webkit browsers
@@ -27,7 +39,7 @@ meter::-webkit-meter-bar {
     border: none;
 }
 
-.get-meter-transform(@index, @meter-color) {
+.get-meter-transform(@index, @meter-color, @icon) {
     &::-webkit-meter-optimum-value {
         background: linear-gradient(90deg, fade(@meter-color, 20%), @meter-color);
     }
@@ -37,18 +49,173 @@ meter::-webkit-meter-bar {
     &:hover {
         @hover-transform: @meter-transform scale(1.15, 1.15) translateZ(10px);
         transform: @hover-transform;
-        outline: 1.75px solid darkslategray;
+        outline: 2px solid darkslategray;
         z-index: 1;
+    }
+    &:after {
+        content: @icon;
+        color: @meter-color;
+        z-index: 2;
     }
 }
 
 meter.health {
-    .get-meter-transform(1, midnightblue);
+    .get-meter-transform(1, midnightblue, "\f21e");
 }
 
 meter.ammo {
-    .get-meter-transform(2, gold);
+    .get-meter-transform(2, gold, "\f135");
 }
 meter.experience {
-    .get-meter-transform(3, purple);
+    .get-meter-transform(3, purple, "\f02d");
+}
+
+#crosshair, #crosshair div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: 4px solid darken(ghostwhite, 10%);
+}
+#crosshair div {
+    width: 50%;
+    height: 50%;
+}
+#crosshair div div {
+    width: 10px;
+    height: 10px;
+}
+
+ul#abilities {
+    color: white;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    margin: 0;
+    margin-bottom: 15px;
+    transform: translateX(-50%);
+    font: @button-font;
+
+    &:after {
+      content: "";
+      z-index: -1;
+      @color: midnightblue;
+      @offset: 5%;
+      @color-end: fade(@color, @offset);
+      background: linear-gradient(90deg, @color-end @offset, @color, @color-end 100% - @offset);
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      width: 150%;
+      height: 1em;
+      transform: translateX(-25%);
+    }
+    
+    li {
+        text-align: center;
+        transition: color 0.2s ease-in;
+        &:hover img {
+            border: 4px double darkorange;
+        }
+        &:hover {
+            color: darkorange;
+        }
+
+    }
+    img {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        border: 4px double darkslategray;
+        transition: border 0.2s ease-in;
+    }
+}
+
+.run-animation(@name, @duration) {
+    animation: @name @duration infinite linear;
+}
+.blur(@amount) {
+    -webkit-filter: blur(@amount);
+}
+#radar {
+    @innermost-color: ghostwhite;
+    @core-color: midnightblue;
+    @outer-core-color: fade(black, 0.3);
+    @outermost-color: transparent;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    width: 20vw;
+    height: 20vw;
+    background: radial-gradient(@innermost-color 5%, @core-color 25%, @outer-core-color 50%, @outermost-color 95%);
+    @keyframes pulsation-frames {
+        0%   { transform: scale(1); }
+        50%  { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    .run-animation(pulsation-frames, 2s);
+    border-radius: 50%;
+    .enemy {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 2px dashed darkslategray;
+        background-repeat: no-repeat !important;
+        background-size: contain !important;
+        background-position: center !important;
+        @keyframes blink {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+        .run-animation(blink, 4s / 3s);
+    }
+    .center {
+        position: absolute;
+        width: 10%;
+        height: 10%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: @innermost-color;
+        border-radius: 50%;
+        .blur(2px);
+    }
+    .line {
+        background: @core-color;
+        position: absolute;
+        width: 50%;
+        @height: 2.5%;
+        height: @height;
+        top: 50% - @height / 2;
+        transform-origin: 100% 100%;
+        border-radius: 50%;
+
+        .get-transform(@index) {
+            @arrow-count: 3;
+            @angular-offset: 360deg / @arrow-count;
+            .rotate-animation-props {
+                @start-angle: @index * @angular-offset;
+                  0%   { transform: rotate(@start-angle); }
+                  50%  { transform: rotate(@start-angle + @angular-offset); }
+                  100% { transform: rotate(@start-angle + 2 * @angular-offset); }
+            }
+            @anim-name: 'rotate-animation-@{index}';
+            @keyframes @anim-name { .rotate-animation-props; }
+            .run-animation(@anim-name, 2s);
+        }
+        &:nth-of-type(1) {
+            .get-transform(1);
+        }
+        &:nth-of-type(2) {
+            .get-transform(2);
+        }
+        &:nth-of-type(3) {
+            .get-transform(3);
+        }
+    }
 }

@@ -4,14 +4,14 @@ var Item = function (name) {
     this.icon = "../images/items/" + iconName;
 };
 
-var allItems = ["", "Ion Turret", "Ion Engine", "Plasma Engine", "Laser Engine"];
+var allItems = config.items;
 var inventory = [];
 var rows = 4;
 var cols = 4;
 for (var i = 0; i < rows; i++) {
     inventory[i] = [];
     for (var j = 0; j < cols; j++) {
-        var itemName = allItems[~~(Math.random() * allItems.length)];
+        var itemName = randomFromArray(allItems);
         inventory[i].push(ko.observable(new Item(itemName)));
     }
 }
@@ -88,33 +88,70 @@ var getTdFromPosition = function (position) {
     return document.querySelector(query);
 };
 
-var onkeydown = function (event) {
+var updatePosition = function (change, selectionFinalized) {
     var current = getTdFromPosition(position);
-    switch (event.keyCode) {
-        case 37: // left
-            position.col = (position.col - 1 + cols) % cols;
-        break;
-        case 38: // up
-            position.row = (position.row - 1 + rows) % rows;
-        break;
-        case 39: // right
-            position.col = (position.col + 1) % cols;
-        break;
-        case 40: // down
-            position.row = (position.row + 1) % rows;
-        break;
-    };
+    console.log(position);
+    position.row = (position.row + change.row + rows) % rows;
+    position.col = (position.col + change.col + cols) % cols;
+    console.log(change,position);
     var next = getTdFromPosition(position);
     if (next != current) {
         current.classList.toggle("focused");
         next.classList.toggle("focused");
     }
-    if (event.keyCode === 13 /* enter */) {
+    if (selectionFinalized) {
         onselection(next);
     }
 };
 
+var onkeydown = function (event) {
+    var change = {row: 0, col: 0};
+    switch (event.keyCode) {
+        case 37: // left
+            change.col = -1;
+        break;
+        case 38: // up
+            change.row = -1;
+        break;
+        case 39: // right
+            change.col = 1;
+        break;
+        case 40: // down
+            change.row = 1;
+        break;
+    };
+    var selectionFinalized = false;
+    if (event.keyCode === 13 /* enter */) {
+        selectionFinalized = true;
+    }
+    updatePosition(change, selectionFinalized);
+};
+
 document.addEventListener("keydown", onkeydown, false);
+
+var sign = function (n) {
+    if (n === 0) { return 0; }
+    return Math.abs(n) / n;
+};
+
+var frameCounter = 0;
+Gamepad.listen(function (gamepad) {
+    if (!gamepad || frameCounter-- !== 0) return;
+
+    var leftRight = gamepad.axes[0];
+    var upDown = gamepad.axes[1];
+    var change = {row: 0, col: 0};
+    if (Math.abs(leftRight) >= 0.5) {
+        // Left
+        change.col = sign(leftRight);
+    }
+    if (Math.abs(upDown) >= 0.5) {
+        change.row = sign(upDown);
+    }
+    var selectionFinalized = gamepad.buttons[0].pressed;
+    updatePosition(change, selectionFinalized);
+    frameCounter = 5;
+});
 
 var viewmodel = {
     inventory: inventory,
